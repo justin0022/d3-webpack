@@ -39,7 +39,6 @@ const bar = ({ data, width, height, id }) => {
   svg.append('g')
     .call(d3.axisLeft(y))
 
-  console.log(svg.node())
   return svg.node()
 }
 
