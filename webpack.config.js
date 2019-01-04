@@ -6,6 +6,7 @@ const HtmlWebpackPluginConfig = new HtmlWebpackPlugin({
   inject: 'body'
 })
 module.exports = {
+  mode: 'development',
   entry: './src/index.js',
   output: {
     path: path.resolve('dist'),
