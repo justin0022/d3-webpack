@@ -18,6 +18,5 @@ const data = [
   { name: 'Mary', age: 29 }
 ]
 
-const chart = bar({ data, width: 1000, height: 600, id: 'barChart1' })
-
-document.body.appendChild(chart)
+const chart = document.getElementById('chart')
+chart.appendChild(bar({ data, width: 1000, height: 600, id: '#chart' }))

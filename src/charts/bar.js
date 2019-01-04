@@ -6,14 +6,22 @@ const bar = ({ data, width, height, id }) => {
   const aHeight = height - margin.top - margin.bottom
 
   const x = d3.scaleBand()
-    .range([0, aWidth])
+    .domain(data.map(d => d.name))
+    .range([margin.left, width - margin.right])
     .padding(0.1)
-  const y = d3.scaleLinear()
-    .range([aHeight, 0])
 
-  const svg = d3.select(document.createElement('div')).append('svg')
-    .attr('width', width)
-    .attr('height', height)
+  const y = d3.scaleLinear()
+    .domain([0, d3.max(data, d => d.age)]).nice()
+    .range([height - margin.bottom, margin.top])
+
+  const svg = d3.select(id).append('svg')
+    .attr('style', 'display: block;')
+    .attr('width', aWidth)
+    .attr('height', aHeight)
+
+  svg.append('g')
+    .attr('fill', 'steelblue')
+    .attr('transform', `translate(${margin.left}, ${margin.right})`)
 
   svg.selectAll('.bar')
     .data(data)
@@ -31,6 +39,7 @@ const bar = ({ data, width, height, id }) => {
   svg.append('g')
     .call(d3.axisLeft(y))
 
+  console.log(svg.node())
   return svg.node()
 }
 
