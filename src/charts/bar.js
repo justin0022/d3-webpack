@@ -24,8 +24,8 @@ const bar = ({ data, width, height, id }) => {
     .attr('transform', `translate(${margin.left}, ${margin.right})`)
 
   svg.selectAll('.bar')
-    .data(data)
-    .enter().append('rect')
+    .data(data).enter()
+    .append('rect')
     .attr('class', 'bar')
     .attr('x', d => x(d.name))
     .attr('width', x.bandwidth())
