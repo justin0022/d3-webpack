@@ -1,5 +1,6 @@
 import * as d3 from 'd3'
 import bar from './charts/bar'
+import { createAndAppendToBody } from './util/domUtil'
 
 const data1 = [
   { name: 'Bob', age: 33 },
@@ -34,7 +35,7 @@ const data2 = [
   { name: 'Mary', age: 13 }
 ]
 
-const chart1 = document.getElementById('chart1')
-const chart2 = document.getElementById('chart2')
+const chart1 = createAndAppendToBody('chart1')
+const chart2 = createAndAppendToBody('chart2')
 chart1.appendChild(bar({ data: data1, width: 1000, height: 600, id: '#chart1' }))
 chart2.appendChild(bar({ data: data2, width: 1000, height: 600, id: '#chart2' }))
