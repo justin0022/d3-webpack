@@ -1,7 +1,7 @@
 import * as d3 from 'd3'
 import { margin } from '../constants/constants'
 
-const bar = ({ data, width, height, id }) => {
+const bar = ({ data, width, height, id, tip }) => {
   const aWidth = width - margin.left - margin.right
   const aHeight = height - margin.top - margin.bottom
 
@@ -19,6 +19,8 @@ const bar = ({ data, width, height, id }) => {
     .attr('width', aWidth)
     .attr('height', aHeight)
 
+  if (tip) svg.call(tip)
+
   svg.append('g')
     .attr('fill', 'steelblue')
     .attr('transform', `translate(${margin.left}, ${margin.right})`)
@@ -31,6 +33,8 @@ const bar = ({ data, width, height, id }) => {
     .attr('width', x.bandwidth())
     .attr('y', d => y(d.age))
     .attr('height', d => y(0) - y(d.age))
+    .on('mouseover', tip.show)
+    .on('mouseout', tip.hide)
 
   svg.append('g')
     .attr('transform', `translate(0, ${aHeight - margin.bottom})`)

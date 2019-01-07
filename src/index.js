@@ -1,4 +1,6 @@
+
 import bar from './charts/bar'
+import d3tip from 'd3-tip'
 import { createAndAppendToBody } from './util/domUtil'
 
 const data1 = [
@@ -24,19 +26,17 @@ const data2 = [
   { name: 'Mark', age: 23 },
   { name: 'Joe', age: 10 },
   { name: 'Eve', age: 44 },
-  { name: 'Karen', age: 4 },
-  { name: 'Kirsty', age: 56 },
-  { name: 'Chris', age: 12 },
-  { name: 'Lisa', age: 41 },
-  { name: 'Tom', age: 5 },
-  { name: 'Stacy', age: 2 },
-  { name: 'Charles', age: 92 },
-  { name: 'Mary', age: 13 }
+  { name: 'Karen', age: 4 }
 ]
+
+var tip = d3tip()
+  .attr('class', 'd3-tip')
+  .html(d => `<strong>${d.age}</strong>`)
 
 const chart1 = createAndAppendToBody('chart1')
 const chart2 = createAndAppendToBody('chart2')
-const bar1 = bar({ data: data1, width: 1000, height: 600, id: '#chart1' })
-const bar2 = bar({ data: data2, width: 1000, height: 600, id: '#chart2' })
+const bar1 = bar({ data: data1, width: 1000, height: 600, id: '#chart1', tip })
+const bar2 = bar({ data: data2, width: 1000, height: 600, id: '#chart2', tip })
+
 chart1.appendChild(bar1)
 chart2.appendChild(bar2)
