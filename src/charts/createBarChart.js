@@ -15,17 +15,14 @@ const createBarChart = ({ data, width, height, id, tip }) => {
     .range([aHeight - margin.bottom, margin.top])
 
   const svg = d3.select(id).append('svg')
-    .attr('style', 'display: block;')
     .attr('width', aWidth)
     .attr('height', aHeight)
-
-  if (tip) svg.call(tip)
 
   svg.append('g')
     .attr('fill', 'steelblue')
     .attr('transform', `translate(${margin.left}, ${margin.right})`)
 
-  svg.selectAll('.bar')
+  const bar = svg.selectAll('.bar')
     .data(data).enter()
     .append('rect')
     .attr('class', 'bar')
@@ -33,8 +30,13 @@ const createBarChart = ({ data, width, height, id, tip }) => {
     .attr('width', x.bandwidth())
     .attr('y', d => y(d.age))
     .attr('height', d => y(0) - y(d.age))
-    .on('mouseover', tip.show)
-    .on('mouseout', tip.hide)
+
+  if (tip) {
+    svg.call(tip)
+    bar
+      .on('mouseover', tip.show)
+      .on('mouseout', tip.hide)
+  }
 
   svg.append('g')
     .attr('transform', `translate(0, ${aHeight - margin.bottom})`)

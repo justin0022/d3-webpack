@@ -1,5 +1,6 @@
 
 import createBarChart from './charts/createBarChart'
+import createHistogram from './charts/createHistogram'
 import { createAndAppendToBody } from './util/domUtil'
 import createToolTip from './components/createToolTip'
 
@@ -28,9 +29,13 @@ const data2 = [
   { name: 'Eve', age: 44 },
   { name: 'Karen', age: 4 }
 ]
+const data3 = [5.1, 4.9, 8.6, 6.2, 5.1, 7.1, 6.7, 6.1, 5, 5, 5.2, 7.9, 11.1, 5.9, 5.5, 5.6, 6.5, 7.7, 5.7, 6.7, 5.7, 4.8, 5.6, 9.5, 5.7, 4.7, 6.3]
+data3.x = 'Unemployment %'
+data3.y = 'Countries'
 
 const chart1 = createAndAppendToBody('chart1')
 const chart2 = createAndAppendToBody('chart2')
+const chart3 = createAndAppendToBody('chart3')
 
 const barChartConfig = {
   data: data1,
@@ -42,6 +47,14 @@ const barChartConfig = {
 
 const bar1 = createBarChart(barChartConfig)
 const bar2 = createBarChart({ ...barChartConfig, data: data2 })
+const histogram = createHistogram({
+  data: data3,
+  width: 1000,
+  height: 600,
+  id: '#chart3',
+  tip: createToolTip(d => `<p>${}</p>`)
+})
 
 chart1.appendChild(bar1)
 chart2.appendChild(bar2)
+chart3.appendChild(histogram)
