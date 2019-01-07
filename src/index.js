@@ -31,8 +31,17 @@ const data2 = [
 
 const chart1 = createAndAppendToBody('chart1')
 const chart2 = createAndAppendToBody('chart2')
-const bar1 = createBarChart({ data: data1, width: 1000, height: 600, id: '#chart1', tip: createToolTip(d => `<p>${d.age}</p>`) })
-const bar2 = createBarChart({ data: data2, width: 1000, height: 600, id: '#chart2', tip: createToolTip(d => `<p>${d.age}</p>`) })
+
+const barChartConfig = {
+  data: data1,
+  width: 1000,
+  height: 600,
+  id: '#chart1',
+  tip: createToolTip(d => `<p>${d.age}</p>`)
+}
+
+const bar1 = createBarChart(barChartConfig)
+const bar2 = createBarChart({ ...barChartConfig, data: data2 })
 
 chart1.appendChild(bar1)
 chart2.appendChild(bar2)
