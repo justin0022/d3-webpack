@@ -1,4 +1,3 @@
-import * as d3 from 'd3'
 import bar from './charts/bar'
 import { createAndAppendToBody } from './util/domUtil'
 
