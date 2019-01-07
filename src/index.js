@@ -1,7 +1,7 @@
 
-import bar from './charts/bar'
-import d3tip from 'd3-tip'
+import createBarChart from './charts/createBarChart'
 import { createAndAppendToBody } from './util/domUtil'
+import createToolTip from './components/createToolTip'
 
 const data1 = [
   { name: 'Bob', age: 33 },
@@ -29,14 +29,10 @@ const data2 = [
   { name: 'Karen', age: 4 }
 ]
 
-var tip = d3tip()
-  .attr('class', 'd3-tip')
-  .html(d => `<strong>${d.age}</strong>`)
-
 const chart1 = createAndAppendToBody('chart1')
 const chart2 = createAndAppendToBody('chart2')
-const bar1 = bar({ data: data1, width: 1000, height: 600, id: '#chart1', tip })
-const bar2 = bar({ data: data2, width: 1000, height: 600, id: '#chart2', tip })
+const bar1 = createBarChart({ data: data1, width: 1000, height: 600, id: '#chart1', tip: createToolTip(d => `<p>${d.age}</p>`) })
+const bar2 = createBarChart({ data: data2, width: 1000, height: 600, id: '#chart2', tip: createToolTip(d => `<p>${d.age}</p>`) })
 
 chart1.appendChild(bar1)
 chart2.appendChild(bar2)

@@ -1,7 +1,7 @@
 import * as d3 from 'd3'
 import { margin } from '../constants/constants'
 
-const bar = ({ data, width, height, id, tip }) => {
+const createBarChart = ({ data, width, height, id, tip }) => {
   const aWidth = width - margin.left - margin.right
   const aHeight = height - margin.top - margin.bottom
 
@@ -47,4 +47,4 @@ const bar = ({ data, width, height, id, tip }) => {
   return svg.node()
 }
 
-export default bar
+export default createBarChart
