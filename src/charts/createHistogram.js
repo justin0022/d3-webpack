@@ -21,9 +21,7 @@ const createHistogram = ({ data, width, height, id, tip }) => {
     .attr('width', aWidth)
     .attr('height', aHeight)
 
-  svg.append('g')
-    .attr('fill', '#4682b4')
-    .selectAll('rect')
+  const bar = svg.selectAll('rect')
     .data(bins).enter()
     .append('rect')
     .attr('x', d => x(d.x0) + 1)
@@ -59,6 +57,13 @@ const createHistogram = ({ data, width, height, id, tip }) => {
 
   svg.append('g')
     .call(yAxis)
+
+  if (tip) {
+    svg.call(tip)
+    bar
+      .on('mouseover', tip.show)
+      .on('mouseout', tip.hide)
+  }
 
   return svg.node()
 }

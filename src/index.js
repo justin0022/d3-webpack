@@ -52,7 +52,7 @@ const histogram = createHistogram({
   width: 1000,
   height: 600,
   id: '#chart3',
-  tip: createToolTip(d => `<p>${}</p>`)
+  tip: createToolTip(d => `<p>${d.length}</p>`)
 })
 
 chart1.appendChild(bar1)
