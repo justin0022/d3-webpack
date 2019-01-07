@@ -36,5 +36,7 @@ const data2 = [
 
 const chart1 = createAndAppendToBody('chart1')
 const chart2 = createAndAppendToBody('chart2')
-chart1.appendChild(bar({ data: data1, width: 1000, height: 600, id: '#chart1' }))
-chart2.appendChild(bar({ data: data2, width: 1000, height: 600, id: '#chart2' }))
+const bar1 = bar({ data: data1, width: 1000, height: 600, id: '#chart1' })
+const bar2 = bar({ data: data2, width: 1000, height: 600, id: '#chart2' })
+chart1.appendChild(bar1)
+chart2.appendChild(bar2)
