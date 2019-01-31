@@ -1,5 +1,6 @@
 import * as d3 from 'd3'
 import { margin } from '../constants/constants'
+import { getKeys } from '../util/arrayUtil'
 
 const createGroupedBarChart = ({ data, width, height, id, tip }) => {
   const aWidth = width - margin.left - margin.right
@@ -11,6 +12,7 @@ const createGroupedBarChart = ({ data, width, height, id, tip }) => {
     .padding(0.1)
 
   const x1 = d3.scaleBand()
+    .domain(getKeys(data.slice(0)))
     .padding(0.5)
 
   const y = d3.scaleLinear()
@@ -26,11 +28,15 @@ const createGroupedBarChart = ({ data, width, height, id, tip }) => {
   g.append('g')
     .data(data)
     .enter().append('g')
-      .attr('transform', d => `translate(${x0(d.label)}, 0)`)
+    .attr('transform', d => `translate(${x0(d.label)}, 0)`)
     .selectAll('rect')
-    .data(d => )
-  
-  const bar = svg.selectAll('.bar')
-  
+    .enter().append('rect')
+    .attr('x', d => x1(x1.label))
+    .attr('y', d => y())
 
+  const bar = svg.selectAll('.bar')
+
+  return svg.node()
 }
+
+export default createGroupedBarChart
