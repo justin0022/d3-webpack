@@ -6,7 +6,7 @@ const createBarChart = ({ data, width, height, id, tip }) => {
   const aHeight = height - margin.top - margin.bottom
 
   const x = d3.scaleBand()
-    .domain(data.map(d => d.name))
+    .domain(data.map(d => d.label))
     .range([margin.left, aWidth - margin.right])
     .padding(0.1)
 
@@ -22,7 +22,7 @@ const createBarChart = ({ data, width, height, id, tip }) => {
     .data(data).enter()
     .append('rect')
     .attr('class', 'bar')
-    .attr('x', d => x(d.name))
+    .attr('x', d => x(d.label))
     .attr('width', x.bandwidth())
     .attr('y', d => y(d.age))
     .attr('height', d => y(0) - y(d.age))
