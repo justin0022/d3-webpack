@@ -11,7 +11,7 @@ const createBarChart = ({ data, width, height, id, tip }) => {
     .padding(0.1)
 
   const y = d3.scaleLinear()
-    .domain([0, d3.max(data, d => d.age)]).nice()
+    .domain([0, d3.max(data, d => d.data)]).nice()
     .range([aHeight - margin.bottom, margin.top])
 
   const svg = d3.select(id).append('svg')
@@ -24,8 +24,8 @@ const createBarChart = ({ data, width, height, id, tip }) => {
     .attr('class', 'bar')
     .attr('x', d => x(d.label))
     .attr('width', x.bandwidth())
-    .attr('y', d => y(d.age))
-    .attr('height', d => y(0) - y(d.age))
+    .attr('y', d => y(d.data))
+    .attr('height', d => y(0) - y(d.data))
 
   svg.append('g')
     .attr('transform', `translate(0, ${aHeight - margin.bottom})`)

@@ -16,7 +16,7 @@ const barChartConfig = {
   width: 1000,
   height: 600,
   id: '#chart1',
-  tip: createToolTip(d => `<p>${d.age}</p>`)
+  tip: createToolTip(d => `<p>${d.data}</p>`)
 }
 
 const barChart1 = createBarChart(barChartConfig)

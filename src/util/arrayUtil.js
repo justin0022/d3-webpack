@@ -4,11 +4,11 @@ const flatten = arr => arr.reduce((acc, cur) =>
     : [...acc, cur]
   , [])
 
-const getKeys = arrOfObj => flatten(
-  arrOfObj.map(x => Object.keys(x))
+const getValues = obj => flatten(
+  Object.values(obj)
 )
 
 export {
-  getKeys,
-  flatten
+  flatten,
+  getValues
 }
