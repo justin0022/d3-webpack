@@ -18,7 +18,7 @@ const createGroupedBarChart = ({ data, width, height, id, tip }) => {
     .padding(0.5)
 
   const y = d3.scaleLinear()
-    .domain([0, d3.max(data, d => getValues(d.data))]).nice()
+    .domain([0, d3.max(flatten(data.map(x => getValues(x.data))))]).nice()
     .range([aHeight - margin.bottom, margin.top])
 
   const svg = d3.select(id).append('svg')
@@ -34,15 +34,21 @@ const createGroupedBarChart = ({ data, width, height, id, tip }) => {
     .attr('transform', d => `translate(${x0(d.label)}, 0)`)
     .selectAll('rect')
     .data(d => {
+      // console.log(d)
       return keys.map(key => {
-        const obj = d.data
-        console.log(d.data[key])
+        // console.log({ key, value: d.data[key] })
         return ({ key, value: d.data[key] })
       })
     })
     .enter().append('rect')
-    .attr('x', d => x1(d.key))
-    .attr('y', d => y(d.value))
+    .attr('x', d => {
+      // console.log(d)
+      return x1(d.key)
+    })
+    .attr('y', d => {
+      // console.log(d.value)
+      return y(d.value)
+    })
     .attr('width', x1.bandwidth())
     .attr('height', d => height - y(d.value))
 
