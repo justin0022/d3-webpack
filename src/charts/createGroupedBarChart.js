@@ -15,6 +15,7 @@ const createGroupedBarChart = ({ data, width, height, id, tip }) => {
 
   const x1 = d3.scaleBand()
     .domain(keys)
+    .rangeRound([0, x0.bandwidth()])
     .padding(0.5)
 
   const y = d3.scaleLinear()
@@ -42,7 +43,7 @@ const createGroupedBarChart = ({ data, width, height, id, tip }) => {
     })
     .enter().append('rect')
     .attr('x', d => {
-      // console.log(d)
+      console.log(x1(d.key))
       return x1(d.key)
     })
     .attr('y', d => {
