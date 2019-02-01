@@ -21,7 +21,12 @@ const barChartConfig = {
 
 const barChart1 = createBarChart(barChartConfig)
 const barChart2 = createBarChart({ ...barChartConfig, data: barChartData2 })
-const groupedBarChart = createGroupedBarChart({ ...barChartConfig, data: groupedBarChartData })
+const groupedBarChart = createGroupedBarChart(
+  { ...barChartConfig,
+    data: groupedBarChartData,
+    tip: createToolTip(d => `<p>${d.value}</p>`)
+  }
+)
 
 histogramData.x = 'Unemployment %'
 histogramData.y = 'Countries'

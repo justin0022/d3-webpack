@@ -26,49 +26,42 @@ const createGroupedBarChart = ({ data, width, height, id, tip }) => {
     .attr('width', aWidth)
     .attr('height', aHeight)
 
-  const g = svg.append('g').attr('transform', `translate(${margin.left},0)`)
-
-  g.append('g')
+  const g = svg.append('g')
     .selectAll('g')
     .data(data).enter()
     .append('g')
     .attr('transform', d => `translate(${x0(d.label)}, 0)`)
-    .selectAll('rect')
-    .data(d => {
-      // console.log(d)
-      return keys.map(key => {
-        // console.log({ key, value: d.data[key] })
-        return ({ key, value: d.data[key] })
-      })
-    })
-    .enter().append('rect')
-    .attr('x', d => {
-      console.log(x1(d.key))
-      return x1(d.key)
-    })
-    .attr('y', d => {
-      // console.log(d.value)
-      return y(d.value)
-    })
-    .attr('width', x1.bandwidth())
-    .attr('height', d => height - y(d.value))
 
-  g.append('g')
-    .attr('class', 'axis')
-    .attr('transform', `translate(0,${height})`)
+  const bar = g.selectAll('rect')
+    .data(d => keys.map(key => ({ key, value: d.data[key] })))
+    .enter().append('rect')
+    .attr('x', d => x1(d.key))
+    .attr('y', d => y(d.value))
+    .attr('width', x1.bandwidth())
+    .attr('height', d => aHeight - margin.bottom - y(d.value))
+
+  svg.append('g')
+    .attr('transform', `translate(0,${aHeight - margin.bottom})`)
     .call(d3.axisBottom(x0))
 
-  g.append('g')
-    .attr('class', 'axis')
+  svg.append('g')
+    .attr('transform', `translate(${margin.left},0)`)
     .call(d3.axisLeft(y).ticks(null, 's'))
-  // .append('text')
-  //   .attr('x', 2)
-  //   .attr('y', y(y.ticks().pop()) + 0.5)
-  //   .attr('dy', '0.32em')
-  //   .attr('fill', '#000')
-  //   .attr('font-weight', 'bold')
-  //   .attr('text-anchor', 'start')
-    // .text('Population')
+    .append('text')
+    .attr('x', 2)
+    .attr('y', y(y.ticks().pop()) + 0.5)
+    .attr('dy', '0.32em')
+    .attr('fill', '#000')
+    .attr('font-weight', 'bold')
+    .attr('text-anchor', 'start')
+    .text('Population')
+
+  if (tip) {
+    svg.call(tip)
+    bar
+      .on('mouseover', tip.show)
+      .on('mouseout', tip.hide)
+  }
 
   return svg.node()
 }
