@@ -1,6 +1,7 @@
 import * as d3 from 'd3'
 import { margin } from '../constants/constants'
 import { getValues, flatten } from '../util/arrayUtil'
+import { Z_ASCII } from 'zlib'
 
 const createGroupedBarChart = ({ data, width, height, id, tip }) => {
   const aWidth = width - margin.left - margin.right
@@ -22,6 +23,9 @@ const createGroupedBarChart = ({ data, width, height, id, tip }) => {
     .domain([0, d3.max(flatten(data.map(x => getValues(x.data))))]).nice()
     .range([aHeight - margin.bottom, margin.top])
 
+  const colours = d3.scaleOrdinal()
+    .range(['#98abc5', '#8a89a6', '#7b6888', '#6b486b', '#a05d56', '#d0743c', '#ff8c00'])
+
   const svg = d3.select(id).append('svg')
     .attr('width', aWidth)
     .attr('height', aHeight)
@@ -39,6 +43,7 @@ const createGroupedBarChart = ({ data, width, height, id, tip }) => {
     .attr('y', d => y(d.value))
     .attr('width', x1.bandwidth())
     .attr('height', d => aHeight - margin.bottom - y(d.value))
+    .attr('fill', d => colours(d.key))
 
   svg.append('g')
     .attr('transform', `translate(0,${aHeight - margin.bottom})`)
