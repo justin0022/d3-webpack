@@ -1,7 +1,6 @@
 import * as d3 from 'd3'
 import { margin } from '../constants/constants'
 import { getValues, flatten } from '../util/arrayUtil'
-import { Z_ASCII } from 'zlib'
 
 const createGroupedBarChart = ({ data, width, height, id, tip }) => {
   const aWidth = width - margin.left - margin.right
