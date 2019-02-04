@@ -4,8 +4,6 @@ import { adjustViewport } from '../util/chartUtils'
 
 const createBulletChart = ({ data, width, height }) => {
   const [aWidth, aHeight] = adjustViewport(width, height, margin)
-
-
 }
 
 export default createBulletChart
