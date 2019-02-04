@@ -67,7 +67,7 @@ const createGroupedBarChart = ({ data, width, height, id, tip }) => {
       .on('mouseout', tip.hide)
   }
 
-  return svg.node()
+  return svg
 }
 
 export default createGroupedBarChart
