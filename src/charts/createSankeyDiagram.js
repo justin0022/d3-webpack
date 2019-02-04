@@ -11,7 +11,7 @@ const pickColor = name => color(name.replace(/ .*/, ''))
 const f = d3.format(',.0f')
 const format = d => `${f(d)} TWh`
 
-const createSankeyDiagram = ({ data, width, height, id, tip }) => {
+const createSankeyDiagram = ({ data, width, height, id }) => {
   const [aWidth, aHeight] = adjustViewport(width, height, margin)
 
   const svg = d3.select(`#${id}`).append('svg')
