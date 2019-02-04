@@ -25,7 +25,6 @@ const createLineChart = ({ data, width, height, id, tip }) => {
   const yAxis = g => g
     .attr('transform', `translate(${margin.left},0)`)
     .call(d3.axisLeft(y))
-    .call(g => g.select('.domain').remove())
 
   const svg = d3.select(`#${id}`).append('svg')
     .attr('width', aWidth)
