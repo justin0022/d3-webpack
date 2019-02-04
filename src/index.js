@@ -49,8 +49,7 @@ createLineChart({
   data: lineChartData,
   width: 1000,
   height: 600,
-  id: chart5,
-  tip: createToolTip(d => `<p>${d.value}</p>`)
+  id: chart5
 })
 
 createSankeyDiagram({

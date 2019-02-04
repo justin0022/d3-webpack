@@ -2,7 +2,7 @@ import * as d3 from 'd3'
 import { margin } from '../constants/constants'
 import { adjustViewport } from '../util/chartUtils'
 
-const createLineChart = ({ data, width, height, id, tip }) => {
+const createLineChart = ({ data, width, height, id }) => {
   const [aWidth, aHeight] = adjustViewport(width, height, margin)
 
   const x = d3.scaleLinear()
@@ -36,7 +36,7 @@ const createLineChart = ({ data, width, height, id, tip }) => {
   svg.append('g')
     .call(yAxis)
 
-  const path = svg.append('path')
+  svg.append('path')
     .datum(data)
     .attr('fill', 'none')
     .attr('stroke', 'steelblue')
@@ -44,13 +44,6 @@ const createLineChart = ({ data, width, height, id, tip }) => {
     .attr('stroke-linejoin', 'round')
     .attr('stroke-linecap', 'round')
     .attr('d', line)
-
-  if (tip) {
-    svg.call(tip)
-    path
-      .on('mouseover', tip.show)
-      .on('mouseout', tip.hide)
-  }
 
   return svg
 }
