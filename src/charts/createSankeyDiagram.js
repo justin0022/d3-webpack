@@ -24,8 +24,6 @@ const createSankeyDiagram = ({ data, width, height, id, tip }) => {
 
   const { nodes, links } = createSankey(data)
 
-  console.log(links, nodes)
-
   const link = svg.append('g')
     .attr('fill', 'none')
     .attr('stroke-opacity', 0.5)
@@ -56,7 +54,7 @@ const createSankeyDiagram = ({ data, width, height, id, tip }) => {
 
   link.append('path')
     .attr('d', sankeyLinkHorizontal())
-    .attr('stroke', d => d.uid)
+    .attr('stroke', d => color(d.source.name))
     .attr('stroke-width', d => Math.max(1, d.width))
 
   link.append('title')
