@@ -11,3 +11,9 @@ export function setHeight (chartConfig, height) {
 export function setData (chartConfig, data) {
   return set(chartConfig, 'data', data)
 }
+
+export function adjustViewport (width, height, margin) {
+  const aWidth = width - margin.left - margin.right
+  const aHeight = height - margin.top - margin.bottom
+  return [aWidth, aHeight]
+}

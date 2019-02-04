@@ -89,6 +89,10 @@ const groupedBarChartData = [
   }
 ]
 
+const whatIfData = [
+
+]
+
 export {
   barChartData1,
   barChartData2,

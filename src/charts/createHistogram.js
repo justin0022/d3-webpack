@@ -1,9 +1,9 @@
 import * as d3 from 'd3'
 import { margin } from '../constants/constants'
+import { adjustViewport } from '../util/chartUtils'
 
 const createHistogram = ({ data, width, height, id, tip }) => {
-  const aWidth = width - margin.left - margin.right
-  const aHeight = height - margin.top - margin.bottom
+  const [aWidth, aHeight] = adjustViewport(width, height, margin)
 
   const x = d3.scaleLinear()
     .domain(d3.extent(data)).nice()
