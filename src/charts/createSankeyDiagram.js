@@ -5,6 +5,12 @@ import { sankey as Sankey, sankeyLinkHorizontal } from 'd3-sankey'
 import { margin } from '../constants/constants'
 import { adjustViewport } from '../util/chartUtils'
 
+const color = d3.scaleOrdinal(d3.schemeCategory10)
+const pickColor = name => color(name.replace(/ .*/, ''))
+
+const f = d3.format(',.0f')
+const format = d => `${f(d)} TWh`
+
 const createSankeyDiagram = ({ data, width, height, id, tip }) => {
   const [aWidth, aHeight] = adjustViewport(width, height, margin)
 
@@ -24,6 +30,18 @@ const createSankeyDiagram = ({ data, width, height, id, tip }) => {
 
   const { nodes, links } = createSankey(data)
 
+  svg.append('g')
+    .selectAll('rect')
+    .data(nodes)
+    .enter().append('rect')
+    .attr('x', d => d.x0)
+    .attr('y', d => d.y0)
+    .attr('height', d => d.y1 - d.y0)
+    .attr('width', d => d.x1 - d.x0)
+    .attr('fill', d => color(d.name))
+    .append('title')
+    .text(d => `${d.name}\n${format(d.value)}`)
+
   const link = svg.append('g')
     .attr('fill', 'none')
     .attr('stroke-opacity', 0.5)
@@ -37,12 +55,6 @@ const createSankeyDiagram = ({ data, width, height, id, tip }) => {
     .attr('gradientUnits', 'userSpaceOnUse')
     .attr('x1', d => d.source.x1)
     .attr('x2', d => d.target.x0)
-
-  const color = d3.scaleOrdinal(d3.schemeCategory10)
-  const pickColor = name => color(name.replace(/ .*/, ''))
-
-  const f = d3.format(',.0f')
-  const format = d => `${f(d)} TWh`
 
   gradient.append('stop')
     .attr('offset', '0%')
