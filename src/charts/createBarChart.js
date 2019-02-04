@@ -14,7 +14,7 @@ const createBarChart = ({ data, width, height, id, tip }) => {
     .domain([0, d3.max(data, d => d.data)]).nice()
     .range([aHeight - margin.bottom, margin.top])
 
-  const svg = d3.select(id).append('svg')
+  const svg = d3.select(`#${id}`).append('svg')
     .attr('width', aWidth)
     .attr('height', aHeight)
 
@@ -42,7 +42,7 @@ const createBarChart = ({ data, width, height, id, tip }) => {
       .on('mouseout', tip.hide)
   }
 
-  return svg.node()
+  return svg
 }
 
 export default createBarChart
