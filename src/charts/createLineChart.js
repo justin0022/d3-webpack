@@ -4,30 +4,19 @@ import { adjustViewport } from '../util/chartUtils'
 
 const createLineChart = ({ data, width, height, id, tip }) => {
   const [aWidth, aHeight] = adjustViewport(width, height, margin)
+
   const x = d3.scaleLinear()
-    .domain(data.map(d => d.label))
+    .domain([0, d3.max(data, d => d.label)]).nice()
     .range([margin.left, aWidth - margin.right])
 
   const y = d3.scaleLinear()
-    .domain([0, d3.max(data, d => d.value)]).nice()
+    .domain([0, d3.max(data, d => d.data)]).nice()
     .range([aHeight - margin.bottom, margin.top])
 
   const line = d3.line()
-    .defined(d => !isNaN(d.value))
+    .defined(d => !isNaN(d.data))
     .x(d => x(d.label))
-    .y(d => y(d.value))
-
-  const svg = d3.select(`#${id}`).append('svg')
-    .append('path')
-    .datum(data)
-    .attr('width', aWidth)
-    .attr('height', aHeight)
-    .attr('fill', 'none')
-    .attr('stroke', 'steelblue')
-    .attr('stroke-width', 1.5)
-    .attr('stroke-linejoin', 'round')
-    .attr('stroke-linecap', 'round')
-    .attr('d', line)
+    .y(d => y(d.data))
 
   const xAxis = g => g
     .attr('transform', `translate(0,${aHeight - margin.bottom})`)
@@ -37,11 +26,10 @@ const createLineChart = ({ data, width, height, id, tip }) => {
     .attr('transform', `translate(${margin.left},0)`)
     .call(d3.axisLeft(y))
     .call(g => g.select('.domain').remove())
-    .call(g => g.select('.tick:last-of-type text').clone()
-      .attr('x', 3)
-      .attr('text-anchor', 'start')
-      .attr('font-weight', 'bold')
-      .text(data.y))
+
+  const svg = d3.select(`#${id}`).append('svg')
+    .attr('width', aWidth)
+    .attr('height', aHeight)
 
   svg.append('g')
     .call(xAxis)
@@ -49,9 +37,18 @@ const createLineChart = ({ data, width, height, id, tip }) => {
   svg.append('g')
     .call(yAxis)
 
+  const path = svg.append('path')
+    .datum(data)
+    .attr('fill', 'none')
+    .attr('stroke', 'steelblue')
+    .attr('stroke-width', 1.5)
+    .attr('stroke-linejoin', 'round')
+    .attr('stroke-linecap', 'round')
+    .attr('d', line)
+
   if (tip) {
     svg.call(tip)
-    svg
+    path
       .on('mouseover', tip.show)
       .on('mouseout', tip.hide)
   }
